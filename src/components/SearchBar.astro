@@ -1,0 +1,135 @@
+---
+---
+<div class="w-full">
+  <div class="relative flex flex-col sm:flex-row">
+    <div class="flex-grow relative">
+      <div class="absolute inset-y-0 left-0 pl-3 sm:pl-4 flex items-center pointer-events-none">
+        <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+        </svg>
+      </div>
+      <input 
+        type="search" 
+        id="search-input"
+        class="w-full pl-10 sm:pl-12 pr-4 py-3 sm:py-4 text-base sm:text-lg text-gray-900 bg-white/90 backdrop-blur-sm border-2 border-primary-200 rounded-t-xl sm:rounded-t-none sm:rounded-l-2xl focus:outline-none focus:ring-2 focus:ring-primary-200/50 focus:border-primary-300 transition-all duration-300"
+        placeholder="Search for scholarships or institutions"
+      />
+    </div>
+    <button
+      class="px-4 sm:px-8 py-3 bg-gradient-to-r from-primary-600 to-primary-700 text-white text-base sm:text-lg font-medium rounded-b-xl sm:rounded-b-none sm:rounded-r-2xl hover:from-primary-700 hover:to-primary-800 focus:outline-none focus:ring-2 focus:ring-primary-200/50 focus:ring-offset-2 transition-all duration-300 shadow-lg"
+    >
+      Search
+    </button>
+    <div 
+      id="search-results" 
+      class="absolute z-50 w-full mt-1 bg-white/95 backdrop-blur-sm rounded-2xl shadow-xl border border-primary-100 hidden"
+      style="top: 100%;"
+    >
+      <div class="p-2">
+        <!-- Results will be populated here -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Remove browser's default search input styling */
+  input[type="search"]::-webkit-search-decoration,
+  input[type="search"]::-webkit-search-cancel-button,
+  input[type="search"]::-webkit-search-results-button,
+  input[type="search"]::-webkit-search-results-decoration {
+    -webkit-appearance: none;
+  }
+  
+  /* Custom focus styles */
+  input[type="search"]:focus {
+    outline: none !important;
+  }
+</style>
+
+<script>
+  // Initialize search functionality
+  const searchInput = document.getElementById('search-input');
+  const searchResults = document.getElementById('search-results');
+  const searchButton = searchInput?.nextElementSibling;
+  
+  // Get all opportunities data
+  const opportunities = window.SEARCH_DATA?.filter(item => item.type === 'opportunity') || [];
+  
+  // Configure Fuse.js (imported from node_modules)
+  import Fuse from 'fuse.js';
+  
+  const fuse = new Fuse(opportunities, {
+    keys: ['title', 'country', 'fundingType', 'levelOfStudy', 'tags'],
+    threshold: 0.3,
+    includeScore: true
+  });
+
+  searchInput?.addEventListener('input', (e) => {
+    const target = e.target;
+    const query = target.value;
+
+    if (!query) {
+      searchResults?.classList.add('hidden');
+      return;
+    }
+
+    const results = fuse.search(query);
+    
+    if (results.length > 0) {
+      searchResults?.classList.remove('hidden');
+      searchResults.innerHTML = results
+        .slice(0, 5)
+        .map(({ item, score }) => {
+          // Create highlight class based on relevance score
+          const relevanceClass = score < 0.2 ? 'bg-green-50 border-green-100' : 
+                                 score < 0.4 ? 'bg-white' : 'bg-gray-50';
+          
+          return `
+            <a 
+              href="/blog/${item.slug}" 
+              class="block p-4 hover:bg-gray-50 transition-colors rounded-lg ${relevanceClass}"
+            >
+              <div class="font-medium text-gray-900">${item.title}</div>
+              <div class="mt-1 flex flex-wrap items-center gap-2 text-sm text-gray-600">
+                <span>${item.country || 'Unknown'}</span> 
+                <span>•</span> 
+                <span>${item.levelOfStudy || 'Any Level'}</span>
+                ${item.fundingType ? `<span>•</span><span>${item.fundingType}</span>` : ''}
+              </div>
+            </a>
+          `;
+        })
+        .join('');
+    } else {
+      searchResults.innerHTML = `
+        <div class="p-4 text-gray-500 text-center">
+          No results found for "${query}"
+        </div>
+      `;
+      searchResults?.classList.remove('hidden');
+    }
+  });
+
+  // Search button click
+  searchButton?.addEventListener('click', () => {
+    const query = searchInput.value;
+    if (!query) return;
+    
+    // Navigate to search results page with query parameter
+    window.location.href = `/search?q=${encodeURIComponent(query)}`;
+  });
+
+  // Close search results when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!searchInput?.contains(e.target) && !searchButton?.contains(e.target) && !searchResults?.contains(e.target)) {
+      searchResults?.classList.add('hidden');
+    }
+  });
+  
+  // Handle form submission
+  searchInput?.closest('form')?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    searchButton?.click();
+  });
+</script>

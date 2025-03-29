@@ -1,0 +1,387 @@
+---
+import Layout from '../layouts/Layout.astro';
+import NewsletterSignup from '../components/NewsletterSignup.astro';
+import CurrentOpportunities from '../components/CurrentOpportunities.astro';
+import SearchBar from '../components/SearchBar.astro';
+import { getCollection } from 'astro:content';
+
+// Get all posts for search functionality
+const allPosts = await getCollection('blog');
+
+// Prepare opportunities data for search
+const opportunitiesData = allPosts.map(post => ({
+  title: post.data.title,
+  country: post.data.country,
+  fundingType: post.data.fundingType,
+  levelOfStudy: post.data.levelOfStudy,
+  category: post.data.category,
+  tags: post.data.tags,
+  slug: post.slug
+}));
+---
+
+<Layout 
+  title="Home"
+  description="Find scholarships, fellowships, and internship opportunities for Bangladeshi students looking to study and work abroad."
+  keywords={["scholarships", "fellowships", "internships", "study abroad", "Bangladeshi students", "international education"]}
+>
+  <!-- Hero Section with animated gradient background -->
+  <div class="min-h-[85vh] flex items-center justify-center bg-white relative pb-16 border border-gray-100">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 z-10">
+      <!-- Main Hero Content -->
+      <div class="max-w-4xl mx-auto text-center">
+        <div class="bg-white shadow-xl p-8 sm:p-12 md:p-16 rounded-3xl border border-gray-100">
+          <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-[#047857] via-[#0f766e] to-[#0369a1] bg-clip-text text-transparent">
+            Your Gateway to Global Opportunities
+          </h1>
+          <p class="text-lg sm:text-xl md:text-2xl text-gray-700 mb-8 sm:mb-10">
+            Discover scholarships, fellowships, and internships for Bangladeshi students looking to study and work abroad.
+          </p>
+          
+          <!-- Quick Access Buttons -->
+          <div class="flex flex-wrap justify-center gap-4 sm:gap-6">
+            <a href="/scholarships/current" class="px-6 py-3 bg-primary-600 text-white font-medium rounded-xl hover:bg-primary-700 shadow-md flex items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path d="M12 14l9-5-9-5-9 5 9 5z" />
+                <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998a12.078 12.078 0 01.665-6.479L12 14z" />
+              </svg>
+              Open Scholarships
+            </a>
+            <a href="/opportunities/current" class="px-6 py-3 bg-secondary-600 text-white font-medium rounded-xl hover:bg-secondary-700 shadow-md flex items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+              Open Opportunities
+            </a>
+            <a href="/resources" class="px-6 py-3 bg-accent-500 text-white font-medium rounded-xl hover:bg-accent-600 shadow-md flex items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+              </svg>
+              Resources
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Diagonal cut for visual interest -->
+    <div class="absolute bottom-0 inset-x-0 h-16 bg-gray-50"></div>
+  </div>
+
+  <div class="bg-gray-50 pb-8">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-16 sm:space-y-20 md:space-y-24">
+      <!-- Quick Stats Section - OPTIMIZED VERSION -->
+      <div class="relative p-[2px] rounded-3xl bg-gradient-to-r from-primary-400 to-secondary-400 transform hover:scale-[1.01] transition-all duration-300">
+        <div class="backdrop-blur-md bg-white/90 rounded-[calc(1.5rem-2px)] p-6 sm:p-8 md:p-12">
+        <div class="text-center">
+          <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-10 sm:mb-12">Our Impact</h2>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
+            {[
+              { number: "500+", label: "Active Opportunities" },
+              { number: "50+", label: "Countries" },
+              { number: "100%", label: "Free Resources" },
+              { number: "24/7", label: "Updated Daily" }
+            ].map(stat => (
+              <div class="text-center p-6 rounded-xl bg-white shadow-md border-2 border-primary-100 hover:border-primary-300 transition-all duration-300">
+                <div class="text-3xl sm:text-4xl md:text-5xl font-bold text-primary-600">{stat.number}</div>
+                <div class="mt-3 text-sm sm:text-base font-medium text-gray-600">{stat.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+        </div>
+      </div>
+
+      <!-- Categories Section with enhanced cards -->
+      <div class="relative p-[2px] rounded-3xl bg-gradient-to-r from-primary-400 to-secondary-400 transform hover:scale-[1.01] transition-all duration-300">
+        <div class="backdrop-blur-md bg-white/90 rounded-[calc(1.5rem-2px)] p-8 sm:p-10 md:p-12">
+        <div class="absolute inset-0 bg-dot-pattern opacity-5 rounded-3xl"></div>
+        <h2 class="text-2xl sm:text-3xl font-bold text-center text-gray-900 mb-10 sm:mb-12 md:mb-14">Explore Opportunities</h2>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+          {[
+            {
+              title: "Scholarships",
+              description: "Find fully-funded and partial scholarships for your studies abroad",
+              href: "/scholarships/all",
+              icon: `<path d="M12 14l9-5-9-5-9 5 9 5z M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998a12.078 12.078 0 01.665-6.479L12 14z" />`
+            },
+            {
+              title: "Fellowships",
+              description: "Explore research and professional development opportunities",
+              href: "/opportunities/fellowships",
+              icon: `<path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />`
+            },
+            {
+              title: "Internships",
+              description: "Find international internship opportunities to gain work experience",
+              href: "/opportunities/internships",
+              icon: `<path d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />`
+            },
+            {
+              title: "Resources",
+              description: "Access guides, tips, and resources to help with your applications",
+              href: "/resources",
+              icon: `<path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />`
+            }
+          ].map((category, index) => (
+            <a href={category.href} class="group">
+              <div class="h-full bg-gradient-to-br from-white to-gray-50 rounded-2xl p-6 sm:p-8 border border-gray-100 shadow-soft overflow-hidden relative transform transition-all duration-300 group-hover:shadow-lg group-hover:translate-y-[-5px]">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-primary-100 to-secondary-50 rounded-full blur-3xl opacity-30 -translate-y-16 translate-x-16 group-hover:opacity-50 transition-opacity duration-500"></div>
+                <div class="text-primary-600 mb-5 transform group-hover:scale-110 transition-transform duration-300 relative z-10">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 group-hover:text-primary-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" set:html={category.icon} />
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900 group-hover:text-primary-700 transition-colors duration-300 relative z-10">{category.title}</h3>
+                <p class="mt-3 text-sm text-gray-600 group-hover:text-gray-700 transition-colors duration-300 relative z-10">{category.description}</p>
+                <div class="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-primary-600">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                  </svg>
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
+        </div>
+      </div>
+
+      <!-- Current Opportunities Section -->
+      <div class="relative p-[2px] rounded-3xl bg-gradient-to-r from-primary-400 to-secondary-400 transform hover:scale-[1.01] transition-all duration-300">
+        <div class="backdrop-blur-md bg-white/90 rounded-[calc(1.5rem-2px)] p-8 sm:p-10 md:p-12 overflow-hidden">
+        <div class="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-primary-100 to-secondary-100 rounded-full blur-3xl opacity-20 -translate-y-48 translate-x-48"></div>
+        <div class="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-tr from-primary-100 to-secondary-100 rounded-full blur-3xl opacity-20 translate-y-48 -translate-x-48"></div>
+        
+        <h2 class="text-2xl sm:text-3xl font-bold text-center bg-gradient-to-r from-primary-700 to-secondary-700 bg-clip-text text-transparent mb-10 sm:mb-12 relative z-10">Latest Opportunities</h2>
+        <div class="relative z-10">
+          <CurrentOpportunities />
+        </div>
+        </div>
+      </div>
+
+      <!-- Features Section with animated cards -->
+      <div class="relative p-[2px] rounded-3xl bg-gradient-to-r from-primary-400 to-secondary-400 transform hover:scale-[1.01] transition-all duration-300">
+        <div class="backdrop-blur-md bg-white/90 rounded-[calc(1.5rem-2px)] p-8 sm:p-10 md:p-12 overflow-hidden">
+        <h2 class="text-2xl sm:text-3xl font-bold text-center bg-gradient-to-r from-primary-700 to-secondary-700 bg-clip-text text-transparent mb-10 sm:mb-12">Why Choose Us</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-10">
+          {[
+            {
+              title: "Verified Opportunities",
+              description: "All opportunities are thoroughly verified and updated regularly",
+              icon: `<path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />`
+            },
+            {
+              title: "Fast Updates",
+              description: "Get notified about new opportunities as soon as they're available",
+              icon: `<path d="M13 10V3L4 14h7v7l9-11h-7z" />`
+            },
+            {
+              title: "100% Free",
+              description: "Access all resources and opportunities completely free of charge",
+              icon: `<path d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />`
+            }
+          ].map(feature => (
+            <div class="group bg-gradient-to-br from-white to-gray-50 rounded-2xl p-8 border border-gray-100 shadow-soft hover:shadow-lg transform transition-all duration-500 hover:translate-y-[-5px]">
+              <div class="w-16 h-16 rounded-2xl bg-gradient-to-r from-primary-500/10 to-primary-700/10 flex items-center justify-center mb-6 transform group-hover:scale-110 transition-transform duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-primary-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" set:html={feature.icon} />
+              </div>
+              <h3 class="text-xl font-semibold text-gray-900 mb-3">{feature.title}</h3>
+              <p class="text-gray-600">{feature.description}</p>
+            </div>
+          ))}
+        </div>
+        </div>
+      </div>
+
+      <!-- Volunteer Writer Section -->
+      <div class="relative p-[2px] rounded-3xl bg-gradient-to-r from-primary-400 to-secondary-400 transform hover:scale-[1.01] transition-all duration-300">
+        <div class="backdrop-blur-md bg-white/90 rounded-[calc(1.5rem-2px)] p-8 sm:p-10 md:p-12 overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-primary-50 to-secondary-50 opacity-50"></div>
+        <div class="relative z-10 lg:flex lg:items-center lg:justify-between">
+          <div class="max-w-xl">
+            <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight text-gray-900">Join Us as a Volunteer Writer</h2>
+            <p class="mt-3 text-sm sm:text-base md:text-lg text-gray-600">
+              Help fellow Bangladeshi students by sharing opportunities. Join our team of volunteer writers and make a difference.
+            </p>
+            <div class="mt-6">
+              <ul class="space-y-3 sm:space-y-4 text-sm sm:text-base text-gray-600">
+                <li class="flex items-center">
+                  <div class="flex-shrink-0 w-6 h-6 rounded-full bg-primary-100 flex items-center justify-center mr-3">
+                    <svg class="h-4 w-4 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <span>Share your knowledge and experience</span>
+                </li>
+                <li class="flex items-center">
+                  <div class="flex-shrink-0 w-6 h-6 rounded-full bg-primary-100 flex items-center justify-center mr-3">
+                    <svg class="h-4 w-4 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <span>Build your writing portfolio</span>
+                </li>
+                <li class="flex items-center">
+                  <div class="flex-shrink-0 w-6 h-6 rounded-full bg-primary-100 flex items-center justify-center mr-3">
+                    <svg class="h-4 w-4 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <span>Get recognition in the community</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="mt-8 lg:mt-0 lg:ml-8">
+            <a
+              href="/join-as-writer"
+              class="inline-flex items-center rounded-xl border border-transparent bg-gradient-to-r from-primary-600 to-primary-700 px-5 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-medium text-white shadow-lg hover:from-primary-700 hover:to-primary-800 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 transform hover:scale-105 transition-all duration-300"
+            >
+              Become a Writer
+              <svg class="ml-3 -mr-1 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+              </svg>
+            </a>
+          </div>
+        </div>
+        </div>
+      </div>
+
+      <!-- Facebook Community Section -->
+      <div class="relative p-[2px] rounded-3xl bg-gradient-to-r from-primary-400 to-secondary-400 transform hover:scale-[1.01] transition-all duration-300">
+        <div class="backdrop-blur-md bg-white/90 rounded-[calc(1.5rem-2px)] overflow-hidden">
+        <div class="flex flex-col lg:flex-row">
+          <!-- Left side with image -->
+          <div class="lg:w-1/2 relative">
+            <div class="h-80 lg:h-full relative overflow-hidden">
+              <div class="absolute inset-0 bg-gradient-to-tr from-primary-600 to-secondary-600 opacity-90 mix-blend-multiply"></div>
+              <img
+                src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1200&auto=format&fit=crop"
+                alt="Community discussion"
+                class="w-full h-full object-cover"
+                loading="lazy"
+              />
+              <div class="absolute inset-0 flex flex-col justify-center items-center text-white p-10">
+                <h3 class="text-3xl font-bold mb-4">Join Our Community</h3>
+                <p class="text-white/90 text-center mb-6">Connect with 10,000+ students and alumni from Bangladesh studying abroad</p>
+                <div class="flex items-center gap-3">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                  </svg>
+                  <span class="text-xl font-medium">Facebook Group</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Right side with content -->
+          <div class="lg:w-1/2 p-8 sm:p-10 md:p-12 flex flex-col justify-center">
+            <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-6">Why Join Our Community?</h2>
+            <div class="space-y-6">
+              {[
+                {
+                  title: "Get Real-Time Updates",
+                  description: "Be the first to know about new scholarships and opportunities",
+                  icon: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />`
+                },
+                {
+                  title: "Connect with Alumni",
+                  description: "Network with students who have successfully studied abroad",
+                  icon: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />`
+                },
+                {
+                  title: "Get Application Help",
+                  description: "Ask questions and get guidance on your application process",
+                  icon: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />`
+                }
+              ].map(item => (
+                <div class="flex gap-4">
+                  <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-primary-100 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" set:html={item.icon} />
+                  </div>
+                  <div>
+                    <h3 class="text-lg font-semibold text-gray-900">{item.title}</h3>
+                    <p class="mt-1 text-gray-600">{item.description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <a
+              href="https://www.facebook.com/groups/bangladeshtoabroad"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="mt-8 flex items-center justify-center w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-[#1877F2] to-[#166DE0] text-white font-semibold rounded-xl hover:shadow-lg transition-all duration-300 gap-2"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+              </svg>
+              Join Facebook Group
+            </a>
+          </div>
+        </div>
+        </div>
+      </div>
+
+      <!-- Newsletter Section with animated gradient border -->
+      <div class="relative p-[2px] rounded-3xl bg-gradient-to-r from-primary-400 to-secondary-400 transform hover:scale-[1.01] transition-all duration-300">
+        <div class="backdrop-blur-md bg-white/90 rounded-[calc(1.5rem-2px)] p-8 sm:p-10 md:p-12">
+          <NewsletterSignup />
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script define:vars={{ opportunitiesData }}>
+  // Make opportunities data available for search
+  window.OPPORTUNITIES_DATA = opportunitiesData;
+  
+  // Animation on scroll
+  document.addEventListener('DOMContentLoaded', function() {
+    const sections = document.querySelectorAll('.backdrop-blur-md:not(:first-child)');
+    
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.1
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-fade-in');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+    
+    sections.forEach(section => {
+      // Add initial classes
+      section.classList.add('opacity-0');
+      observer.observe(section);
+    });
+  });
+</script>
+
+<style>
+  /* Animation classes */
+  .animate-fade-in {
+    animation: fadeIn 0.8s ease-out forwards;
+  }
+
+  /* Add smooth scrolling to the page */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Keyframes */
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
