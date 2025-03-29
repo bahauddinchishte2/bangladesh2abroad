@@ -72,6 +72,12 @@ const {
   nofollow,
   hideTopSearch = false
 } = Astro.props;
+
+// Check if current page is homepage
+const isHomePage = Astro.url.pathname === '/';
+
+// Determine the title to display
+const pageTitle = isHomePage ? 'Bangladesh to Abroad' : `${title} | Bangladesh to Abroad`;
 ---
 
 <!doctype html>
@@ -95,7 +101,7 @@ const {
     
     <!-- SEO Component -->
     <SEO
-      title={`${title} | Bangladesh to Abroad`}
+      title={pageTitle}
       description={description}
       image={image}
       canonical={canonical}
