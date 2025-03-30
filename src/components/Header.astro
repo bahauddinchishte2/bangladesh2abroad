@@ -398,5 +398,50 @@ const navigation = {
         if (e.target === searchModal) closeSearchModal();
       });
     }
+
+    // Add scroll-aware functionality for mobile navigation
+    if (mobileNav) {
+      let lastScrollTop = 0;
+      let scrollDirection = 'up';
+      const scrollThreshold = 10; // Minimum scroll amount to trigger hide/show
+
+      window.addEventListener('scroll', () => {
+        const currentScroll = window.scrollY;
+        
+        // Determine scroll direction with threshold to avoid small movements
+        if (currentScroll > lastScrollTop + scrollThreshold) {
+          // Scrolling down
+          if (scrollDirection !== 'down') {
+            scrollDirection = 'down';
+            mobileNav.style.transform = 'translateY(100%)';
+          }
+        } else if (currentScroll < lastScrollTop - scrollThreshold) {
+          // Scrolling up
+          if (scrollDirection !== 'up') {
+            scrollDirection = 'up';
+            mobileNav.style.transform = 'translateY(0)';
+          }
+        }
+        
+        // Update last scroll position, but only when exceeding threshold
+        if (Math.abs(currentScroll - lastScrollTop) > scrollThreshold) {
+          lastScrollTop = currentScroll;
+        }
+      }, { passive: true });
+
+      // Make sure to show the nav when at the top of the page
+      window.addEventListener('scroll', () => {
+        if (window.scrollY === 0) {
+          mobileNav.style.transform = 'translateY(0)';
+        }
+      }, { passive: true });
+
+      // Show the nav when user reaches bottom of page
+      window.addEventListener('scroll', () => {
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 10) {
+          mobileNav.style.transform = 'translateY(0)';
+        }
+      }, { passive: true });
+    }
   });
 </script>
