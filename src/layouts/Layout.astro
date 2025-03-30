@@ -24,6 +24,7 @@ interface Props {
 const allScholarships = await getCollection('scholarships');
 const allOpportunities = await getCollection('opportunities');
 const allResources = await getCollection('resources');
+const allBlogPosts = await getCollection('blog');
 
 // Prepare search data
 const searchData = [
@@ -55,6 +56,14 @@ const searchData = [
     tags: resource.data.tags,
     slug: resource.slug,
     type: 'resource'
+  })),
+  ...allBlogPosts.map(post => ({
+    title: post.data.title,
+    excerpt: post.data.excerpt,
+    tags: post.data.tags,
+    category: post.data.category,
+    slug: post.slug,
+    type: 'blog'
   }))
 ];
 
