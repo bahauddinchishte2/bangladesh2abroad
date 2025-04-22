@@ -45,8 +45,28 @@ export default defineConfig({
       // Reduce memory usage in dev server too
       fs: {
         strict: true,
+      },
+      // Prevent URL printing before server is ready
+      host: true,
+      hmr: {
+        overlay: true
       }
-    }
+    },
+    // Ensure proper server initialization
+    plugins: [
+      {
+        name: 'vite-plugin-server-init-fix',
+        configureServer(server) {
+          // This ensures the server is fully initialized before any URLs are printed
+          const originalPrintUrls = server.printUrls;
+          server.printUrls = function() {
+            if (server.httpServer?.listening) {
+              originalPrintUrls.call(this);
+            }
+          };
+        }
+      }
+    ]
   },
   // Optimize output
   compressHTML: true,
