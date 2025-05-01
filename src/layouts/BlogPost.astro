@@ -24,6 +24,7 @@ const keywords = [
   title={frontmatter.title}
   description={frontmatter.excerpt}
   type="article"
+  contentType="blog"
   publishDate={frontmatter.publishDate}
   author={frontmatter.author}
   keywords={keywords}
@@ -44,13 +45,19 @@ const keywords = [
           src={frontmatter.featuredImage}
           alt={frontmatter.title}
           class="w-full h-auto rounded-lg shadow-md"
+          width="800" 
+          height="450"
+          loading="lazy"
         />
       </div>
     )}
 
     <div class="mb-6 sm:mb-8 p-6 bg-white rounded-lg border border-gray-200">
       <div class="prose prose-lg max-w-none">
-        <slot />
+        <!-- Wrapper div to hide the first h1 heading -->
+        <div class="first-heading-hidden">
+          <slot />
+        </div>
       </div>
     </div>
 
@@ -59,9 +66,9 @@ const keywords = [
       <h2 class="text-lg sm:text-xl font-semibold mb-4">Tags</h2>
       <div class="flex flex-wrap gap-2">
         {frontmatter.tags.map((tag: string) => (
-          <span class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm">
+          <a href={`/tags/${tag.toLowerCase().replace(/ /g, '-')}`} class="px-3 py-1 bg-gray-100 text-gray-600 hover:bg-primary-50 hover:text-primary-600 rounded-full text-sm transition-colors">
             #{tag}
-          </span>
+          </a>
         ))}
       </div>
     </div>
@@ -84,6 +91,11 @@ const keywords = [
 </Layout>
 
 <style is:global>
+  /* Hide the first h1 in the content */
+  .first-heading-hidden > h1:first-child {
+    display: none;
+  }
+
   /* Typography */
   .prose h1 {
     @apply text-2xl sm:text-3xl font-bold mb-6 border-b border-gray-200 pb-3;

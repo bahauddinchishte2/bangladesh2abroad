@@ -32,10 +32,19 @@ const keywords = [
 <Layout 
   title={frontmatter.title}
   description={metaDescription}
-  type="article"
+  type="scholarship"
+  contentType="scholarship"
   publishDate={frontmatter.openDate}
   author={frontmatter.author}
   keywords={keywords}
+  scholarship={{
+    deadline: frontmatter.deadline,
+    fundingType: frontmatter.fundingType,
+    country: frontmatter.country,
+    levelOfStudy: frontmatter.levelOfStudy,
+    hostInstitution: frontmatter.hostInstitution,
+    category: frontmatter.category
+  }}
 >
   <article class="max-w-4xl mx-auto px-4 py-6 sm:py-8">
     <div class="mb-6 sm:mb-8 p-6 sm:p-8 bg-white rounded-xl shadow-lg border border-gray-400">

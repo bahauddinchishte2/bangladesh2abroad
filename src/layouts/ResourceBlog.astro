@@ -35,10 +35,16 @@ const keywords = [
   title={frontmatter.title}
   description={frontmatter.description}
   type="article"
+  contentType="resource"
   publishDate={frontmatter.lastUpdated}
   modifiedDate={frontmatter.lastUpdated}
   author={frontmatter.author}
   keywords={keywords}
+  resource={{
+    area: frontmatter.area,
+    category: frontmatter.category,
+    lastUpdated: frontmatter.lastUpdated
+  }}
 >
   <article class="max-w-7xl mx-auto px-4 py-4 sm:py-6 md:py-8">
     <div class="lg:grid lg:grid-cols-4 lg:gap-8">

@@ -67,8 +67,8 @@ const countries = category === 'country-guides'
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
     <div class="text-center mb-12">
       <div class="flex items-center justify-center gap-3 mb-4">
-        <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-50 to-teal-50 border border-emerald-200 flex items-center justify-center">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" set:html={categoryIcons[category]} />
+        <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-primary-50 border border-primary-200 flex items-center justify-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" set:html={categoryIcons[category]} />
         </div>
       </div>
       <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">{categoryTitles[category]}</h1>
@@ -105,10 +105,10 @@ const countries = category === 'country-guides'
               class="resource-card group relative"
               data-area={resource.data.area.toLowerCase()}
             >
-              <div class="absolute bottom-0 right-0 w-full h-full border-r-4 border-b-4 border-emerald-200 rounded-xl pointer-events-none -z-10 translate-x-1 translate-y-1"></div>
-              <div class="rounded-xl shadow-md hover:shadow-lg transition-shadow border border-emerald-200 overflow-hidden bg-gradient-to-br from-emerald-50 to-teal-50">
+              <div class="absolute bottom-0 right-0 w-full h-full border-r-4 border-b-4 border-primary-200 rounded-xl pointer-events-none -z-10 translate-x-1 translate-y-1"></div>
+              <div class="rounded-xl shadow-md hover:shadow-lg transition-shadow border border-primary-200 overflow-hidden bg-white">
                 <div class="p-6">
-                  <h3 class="text-xl font-semibold text-gray-900 group-hover:text-primary-600 transition-colors mb-3">
+                  <h3 class="text-xl font-semibold text-[#3c5894] group-hover:text-primary-600 transition-colors mb-3">
                     {resource.data.title}
                   </h3>
                   <p class="text-gray-600 text-sm mb-4 line-clamp-2">
@@ -116,7 +116,7 @@ const countries = category === 'country-guides'
                   </p>
                   <div class="flex items-center justify-between">
                     <div class="flex items-center text-sm text-gray-500">
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                       </svg>
                       {format(new Date(resource.data.lastUpdated), 'MMM d, yyyy')}

@@ -1,3 +1,5 @@
 {
-  "template": "astro"
+  "ignore": [
+    "/src/pages/resources/**/*"
+  ]
 }

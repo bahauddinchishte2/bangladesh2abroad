@@ -10,7 +10,8 @@ interface Props {
   description?: string;
   image?: string;
   canonical?: string;
-  type?: 'website' | 'article';
+  type?: 'website' | 'article' | 'scholarship' | 'opportunity' | 'resource';
+  contentType?: 'blog' | 'scholarship' | 'opportunity' | 'resource';
   publishDate?: string;
   modifiedDate?: string;
   author?: string;
@@ -18,6 +19,27 @@ interface Props {
   noindex?: boolean;
   nofollow?: boolean;
   hideTopSearch?: boolean;
+  scholarship?: {
+    deadline?: string;
+    fundingType?: string;
+    country?: string;
+    levelOfStudy?: string;
+    hostInstitution?: string;
+    category?: string;
+  };
+  opportunity?: {
+    deadline?: string;
+    fundingType?: string;
+    country?: string;
+    levelOfStudy?: string;
+    hostInstitution?: string;
+    category?: string;
+  };
+  resource?: {
+    area?: string;
+    category?: string;
+    lastUpdated?: string;
+  };
 }
 
 // Get all content for search functionality
@@ -72,14 +94,18 @@ const {
   description = "Empowering Bangladeshi students with comprehensive information about international educational opportunities.",
   image = '/images/og-image.jpeg',
   canonical,
-  type,
+  type = 'website',
+  contentType,
   publishDate,
   modifiedDate,
   author,
   keywords,
   noindex,
   nofollow,
-  hideTopSearch = false
+  hideTopSearch = false,
+  scholarship,
+  opportunity,
+  resource
 } = Astro.props;
 
 // Check if current page is homepage
@@ -115,12 +141,16 @@ const pageTitle = isHomePage ? 'Bangladesh to Abroad' : `${title} | Bangladesh t
       image={image}
       canonical={canonical}
       type={type}
+      contentType={contentType}
       publishDate={publishDate}
       modifiedDate={modifiedDate}
       author={author}
       keywords={keywords}
       noindex={noindex}
       nofollow={nofollow}
+      scholarship={scholarship}
+      opportunity={opportunity}
+      resource={resource}
     />
   </head>
   <body class="min-h-screen flex flex-col">

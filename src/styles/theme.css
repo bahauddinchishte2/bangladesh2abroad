@@ -1,39 +1,39 @@
 :root {
-  /* Primary Color Palette */
-  --color-primary-50: #ecfdf5;
-  --color-primary-100: #d1fae5;
-  --color-primary-200: #a7f3d0;
-  --color-primary-300: #6ee7b7;
-  --color-primary-400: #34d399;
-  --color-primary-500: #059669;
-  --color-primary-600: #047857;
-  --color-primary-700: #065f46;
-  --color-primary-800: #064e3b;
-  --color-primary-900: #022c22;
+  /* Primary Color Palette - Minimal Navy Blue */
+  --color-primary-50: #f5f7fa;
+  --color-primary-100: #e4e9f2;
+  --color-primary-200: #d0d7e5;
+  --color-primary-300: #a6b5d3;
+  --color-primary-400: #7c93c0;
+  --color-primary-500: #5271ac;
+  --color-primary-600: #3e5a98;
+  --color-primary-700: #344c82;
+  --color-primary-800: #2a3d6d;
+  --color-primary-900: #1e2d55;
 
-  /* Secondary Color Palette */
-  --color-secondary-50: #eff6ff;
-  --color-secondary-100: #dbeafe;
-  --color-secondary-200: #bfdbfe;
-  --color-secondary-300: #93c5fd;
-  --color-secondary-400: #60a5fa;
-  --color-secondary-500: #3b82f6;
-  --color-secondary-600: #2563eb;
-  --color-secondary-700: #1d4ed8;
-  --color-secondary-800: #1e40af;
-  --color-secondary-900: #1e3a8a;
+  /* Secondary Color Palette - Soft Grey */
+  --color-secondary-50: #f8fafc;
+  --color-secondary-100: #f1f5f9;
+  --color-secondary-200: #e2e8f0;
+  --color-secondary-300: #cbd5e1;
+  --color-secondary-400: #94a3b8;
+  --color-secondary-500: #64748b;
+  --color-secondary-600: #475569;
+  --color-secondary-700: #334155;
+  --color-secondary-800: #1e293b;
+  --color-secondary-900: #0f172a;
 
-  /* Accent Color Palette */
-  --color-accent-50: #fff7ed;
-  --color-accent-100: #ffedd5;
-  --color-accent-200: #fed7aa;
-  --color-accent-300: #fdba74;
-  --color-accent-400: #fb923c;
-  --color-accent-500: #f97316;
-  --color-accent-600: #ea580c;
-  --color-accent-700: #c2410c;
-  --color-accent-800: #9a3412;
-  --color-accent-900: #7c2d12;
+  /* Accent Color Palette - Muted Teal */
+  --color-accent-50: #f0fdfa;
+  --color-accent-100: #ccfbf1;
+  --color-accent-200: #99f6e4;
+  --color-accent-300: #5eead4;
+  --color-accent-400: #2dd4bf;
+  --color-accent-500: #14b8a6;
+  --color-accent-600: #0d9488;
+  --color-accent-700: #0f766e;
+  --color-accent-800: #115e59;
+  --color-accent-900: #134e4a;
 
   /* Neutral Color Palette */
   --color-gray-50: #f9fafb;
@@ -68,9 +68,9 @@
   /* Card styles */
   --card-bg-gradient-from: var(--color-primary-50);
   --card-bg-gradient-to: var(--color-secondary-50);
-  --card-border-color: var(--color-primary-200);
+  --card-border-color: var(--color-secondary-200);
   --card-icon-color: var(--color-primary-600);
-  --card-brutalism-border-color: var(--color-primary-200);
+  --card-brutalism-border-color: var(--color-secondary-200);
   
   /* Button colors */
   --button-primary-bg: var(--color-primary-600);
@@ -95,8 +95,8 @@
   --filter-button-hover: var(--color-secondary-600);
   
   /* Link colors */
-  --link-color: var(--color-secondary-600);
-  --link-hover: var(--color-secondary-700);
+  --link-color: var(--color-primary-600);
+  --link-hover: var(--color-primary-700);
 }
 
 /* Theme specific classes for use with Tailwind */
