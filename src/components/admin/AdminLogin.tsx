@@ -80,8 +80,20 @@ const AdminLogin = () => {
       <h2 className="text-2xl font-bold text-[rgb(71,85,105)] mb-6 text-center">Admin Login</h2>
       <Auth
         supabaseClient={supabase}
-        appearance={{ theme: ThemeSupa }}
+        appearance={{ 
+          theme: ThemeSupa,
+          variables: {
+            default: {
+              colors: {
+                brand: 'rgb(71,85,105)',
+                brandAccent: 'rgb(51,65,85)'
+              }
+            }
+          }
+        }}
         providers={[]}
+        view="sign_in"
+        showLinks={true}
         redirectTo={`${window.location.origin}/admin`}
       />
     </div>
