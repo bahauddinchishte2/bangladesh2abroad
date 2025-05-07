@@ -1,0 +1,57 @@
+---
+import Layout from '../../../../layouts/Layout.astro';
+import AdminCheck from '../../../../components/admin/AdminCheck';
+import ScholarshipForm from '../../../../components/admin/ScholarshipForm';
+
+const { id } = Astro.params;
+
+---
+
+<Layout title="Edit Scholarship">
+  <AdminCheck client:load>
+    <div class="min-h-screen bg-gray-50">
+      <div class="flex">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-white shadow-md min-h-screen">
+          <div class="p-4">
+            <h2 class="text-lg font-semibold text-[rgb(71,85,105)]">Dashboard</h2>
+          </div>
+          <nav class="mt-4">
+            <a href="/admin" class="flex items-center px-4 py-2 text-gray-600 hover:bg-gray-50">
+              Dashboard
+            </a>
+            <a href="/admin/scholarships" class="flex items-center px-4 py-2 text-primary-600 bg-primary-50">
+              Scholarships
+            </a>
+            <a href="/admin/opportunities" class="flex items-center px-4 py-2 text-gray-600 hover:bg-gray-50">
+              Opportunities
+            </a>
+            <a href="/admin/resources" class="flex items-center px-4 py-2 text-gray-600 hover:bg-gray-50">
+              Resources
+            </a>
+            <a href="/admin/blog" class="flex items-center px-4 py-2 text-gray-600 hover:bg-gray-50">
+              Blog Posts
+            </a>
+          </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-8">
+          <div class="flex justify-between items-center mb-6">
+            <h1 class="text-2xl font-bold text-[rgb(71,85,105)]">
+              {id === 'new' ? 'Add New Scholarship' : 'Edit Scholarship'}
+            </h1>
+            <a 
+              href="/admin/scholarships" 
+              class="px-4 py-2 text-gray-600 hover:text-gray-800"
+            >
+              Back to List
+            </a>
+          </div>
+          
+          <ScholarshipForm client:load scholarshipId={id === 'new' ? null : id} />
+        </main>
+      </div>
+    </div>
+  </AdminCheck>
+</Layout>
