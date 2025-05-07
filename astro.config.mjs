@@ -12,7 +12,20 @@ export default defineConfig({
   site: 'https://bangladesh2abroad.com',
   vite: {
     ssr: {
-      noExternal: ['@giscus/react', 'fuse.js']
+      noExternal: [
+        '@giscus/react',
+        'fuse.js',
+        '@supabase/supabase-js',
+        '@supabase/auth-ui-react',
+        '@supabase/auth-ui-shared',
+        '@tanstack/react-table',
+        '@headlessui/react',
+        '@tiptap/pm',
+        '@tiptap/react',
+        '@tiptap/starter-kit',
+        '@tiptap/extension-link',
+        '@tiptap/extension-image'
+      ]
     },
     build: {
       minify: 'esbuild',
@@ -24,11 +37,14 @@ export default defineConfig({
               if (id.includes('react')) {
                 return 'react-vendor';
               }
-              if (id.includes('fuse.js') || id.includes('@giscus')) {
+              if (id.includes('fuse.js') || id.includes('@giscus') || id.includes('@supabase')) {
                 return 'search-vendor';
               }
               if (id.includes('date-fns')) {
                 return 'date-vendor';
+              }
+              if (id.includes('@tiptap')) {
+                return 'editor-vendor';
               }
               return 'vendor';
             }
