@@ -5,7 +5,6 @@ import {
   getCoreRowModel,
   useReactTable,
   getSortedRowModel,
-  SortingState,
   getPaginationRowModel,
 } from '@tanstack/react-table';
 import { format } from 'date-fns';
@@ -76,7 +75,7 @@ const columns = [
 
 const ScholarshipList = () => {
   const [data, setData] = useState<Scholarship[]>([]);
-  const [sorting, setSorting] = useState<SortingState>([]);
+  const [sorting, setSorting] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

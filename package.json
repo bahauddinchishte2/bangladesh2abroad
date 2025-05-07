@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "astro dev",
-    "build": "NODE_OPTIONS='--max-old-space-size=8192' astro build --experimental-assets",
+    "build": "NODE_OPTIONS='--max-old-space-size=12288' astro build --experimental-assets --verbose",
     "preview": "astro preview",
     "astro": "astro"
   },

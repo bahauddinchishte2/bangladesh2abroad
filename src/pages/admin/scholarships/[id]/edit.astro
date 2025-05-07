@@ -5,6 +5,13 @@ import ScholarshipForm from '../../../../components/admin/ScholarshipForm';
 
 const { id } = Astro.params;
 
+export async function getStaticPaths() {
+  return [
+    { params: { id: 'new' } },
+    // We'll handle other IDs client-side since they're dynamic and require auth
+    { params: { id: 'edit' } }
+  ];
+}
 ---
 
 <Layout title="Edit Scholarship">
