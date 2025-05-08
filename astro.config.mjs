@@ -12,42 +12,18 @@ export default defineConfig({
   site: 'https://bangladesh2abroad.com',
   vite: {
     ssr: {
-      noExternal: [
-        '@giscus/react',
-        'fuse.js',
-        '@supabase/supabase-js',
-        '@supabase/auth-ui-react',
-        '@supabase/auth-ui-shared',
-        '@tanstack/react-table',
-        '@headlessui/react',
-        '@tiptap/pm',
-        '@tiptap/react',
-        '@tiptap/starter-kit',
-        '@tiptap/extension-link',
-        '@tiptap/extension-image'
-      ]
+      noExternal: ['@giscus/react', 'fuse.js', 'date-fns']
     },
     build: {
       minify: 'esbuild',
       chunkSizeWarningLimit: 1000,
       rollupOptions: {
         output: {
-          manualChunks(id) {
-            if (id.includes('node_modules')) {
-              if (id.includes('react')) {
-                return 'react-vendor';
-              }
-              if (id.includes('fuse.js') || id.includes('@giscus') || id.includes('@supabase')) {
-                return 'search-vendor';
-              }
-              if (id.includes('date-fns')) {
-                return 'date-vendor';
-              }
-              if (id.includes('@tiptap')) {
-                return 'editor-vendor';
-              }
-              return 'vendor';
-            }
+          manualChunks: {
+            'react-vendor': ['react', 'react-dom'],
+            'search-vendor': ['fuse.js', '@giscus/react'],
+            'date-vendor': ['date-fns'],
+            'vendor': []
           }
         }
       }
@@ -69,8 +45,11 @@ export default defineConfig({
     inlineStylesheets: 'never'
   },
   markdown: {
-    remarkPlugins: [],
-    rehypePlugins: [],
-    gfm: false
+    remarkPlugins: ['remark-gfm'],
+    rehypePlugins: ['rehype-slug', 'rehype-autolink-headings'],
+    gfm: true,
+    shikiConfig: {
+      theme: 'github-light'
+    }
   }
 });
