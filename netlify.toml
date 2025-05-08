@@ -6,10 +6,10 @@
   publish = "dist"
 
 [build.environment]
-  NODE_VERSION = "18"
+  NODE_VERSION = "22.15.0"
   NPM_FLAGS = "--no-optional"
-  PUBLIC_SUPABASE_URL = "process.env.SUPABASE_URL"
-  PUBLIC_SUPABASE_ANON_KEY = "process.env.SUPABASE_ANON_KEY"
+  PUBLIC_SUPABASE_URL = "${SUPABASE_URL}"
+  PUBLIC_SUPABASE_ANON_KEY = "${SUPABASE_ANON_KEY}"
 
 # Redirects and rewrites
 [[redirects]]
