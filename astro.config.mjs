@@ -12,7 +12,7 @@ export default defineConfig({
   site: 'https://bangladesh2abroad.com',
   vite: {
     ssr: {
-      noExternal: ['@giscus/react', 'fuse.js', 'date-fns']
+      noExternal: ['@giscus/react']
     },
     build: {
       minify: 'esbuild',
@@ -30,11 +30,21 @@ export default defineConfig({
     },
     server: {
       fs: {
-        strict: true,
+        strict: false,
+        allow: ['..', '.']
       },
       host: true,
       hmr: {
-        overlay: true
+        overlay: true,
+        port: 24679,
+        clientPort: 24679,
+        timeout: 10000,
+        protocol: 'ws'
+      },
+      watch: {
+        usePolling: true,
+        interval: 1000,
+        binaryInterval: 3000
       }
     }
   },
