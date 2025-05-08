@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "npm install @rollup/rollup-linux-x64-gnu@4.9.5 && astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
@@ -36,8 +36,5 @@
   },
   "engines": {
     "node": ">=18.0.0"
-  },
-  "optionalDependencies": {
-    "@rollup/rollup-linux-x64-gnu": "4.9.5"
   }
 }
